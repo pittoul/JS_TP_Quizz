@@ -14,5 +14,6 @@ function afficherAccueil(){
     .querySelector("#colJeu")
     .innerHTML = "Bienvenue dans le QuiZZzzz !";
     document.getElementById("texte2").innerHTML = "Le meilleur score est de " + bestScore.topScore + " points et est détenu par " + bestScore.nom
+    document.getElementById("texte1").innerHTML = "Welcome !"
   }
   

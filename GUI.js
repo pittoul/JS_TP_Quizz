@@ -15,7 +15,6 @@
 let largeurEcran = window.innerWidth;
 let hauteurEcran = window.innerHeight;
 let debutDePage = document.querySelector("div-quizz");
-// ARRIVER A METTRE ROWS ET COLS CORRECTEMENT
 
 // Création du container dans lequel vivra le Quizz
 let unContainer = document.createElement("div");
@@ -26,7 +25,7 @@ unContainer.setAttribute(
     largeurEcran +
     "px; height:" +
     hauteurEcran +
-    "px; font-family:fantasy; background-color:rgb(230, 255, 242); box-sizing: border-box; postion:absolute; flex-direction: column;"
+    "px; font-family:fantasy; background-color:rgb(159, 159, 223); box-sizing: border-box; postion:absolute; flex-direction: column;"
 );
 debutDePage.parentElement.append(unContainer);
 
@@ -246,146 +245,3 @@ document // ajout de la col de droite
   document
   .querySelector("#colJeu")
   .setAttribute("style", "flex-direction: column");
-  
-  
-  
-
-
-
-
-
-// /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-//  *
-//  *
-//  *
-//  *               FONCTIONS de création des éléments graphiques
-//  *                                  ||
-//  *                                  ||
-//  *                                  \/
-//  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-// /** -------------------------------------------------------
-//  * Création de Rangées
-//  * largeur et hauteur sont des int qui représentent des pixels
-//  * @param {*} largeur
-//  * @param {*} hauteur
-//  * @param {*} id
-//  * @param {*} bgColor
-//  */
-// function creerDivRow(
-//   largeur,
-//   hauteur,
-//   id = "",
-//   bgColor = "rgb(200, 205, 242)"
-// ) {
-//   let uneDiv = document.createElement("div");
-//   uneDiv.setAttribute("class", "row");
-//   uneDiv.setAttribute("id", id);
-//   uneDiv.setAttribute(
-//     "style",
-//     "display:flex; width:" +
-//       largeur +
-//       "; height:" +
-//       hauteur +
-//       "; background-color:" +
-//       bgColor +
-//       "; position:relative;"
-//   );
-
-//   return uneDiv;
-// }
-
-// /** -------------------------------------------------------
-//  *                    Création de Colonnes
-//  * @param {*} largeur
-//  * @param {*} hauteur
-//  * @param {*} id
-//  * @param {*} bgColor
-//  */
-// function creerDivCol(
-//   largeur,
-//   hauteur,
-//   id = "",
-//   bgColor = "rgb(200, 205, 242)"
-// ) {
-//   let uneDiv = document.createElement("div");
-//   uneDiv.setAttribute("class", "col");
-//   uneDiv.setAttribute("id", id);
-//   uneDiv.setAttribute(
-//     "style",
-//     "display:flex; width:" +
-//       largeur +
-//       "; height:" +
-//       hauteur +
-//       "; background-color:" +
-//       bgColor +
-//       "; position:relative;"
-//   );
-//   return uneDiv;
-// }
-
-// /**
-//  *                    Création Bouton
-//  * @param {*} parent
-//  * @param {*} id
-//  * @param {*} infos
-//  */
-// function creerBouton(parent, id = "", infos = "joli Bouton !") {
-//   let unBouton = document.createElement("button");
-//   unBouton.setAttribute("id", id);
-//   parent.append(unBouton);
-//   document.querySelector("#" + id).innerHTML = infos;
-//   return unBouton;
-// }
-
-// /**
-//  *
-//  *                    Création Paragraphe
-//  * @param {*} parent
-//  * @param {*} id
-//  * @param {*} texte
-//  */
-// function creerPara(parent, id = "", texte = "Texte du paragraphe", style="") {
-//   let unPara = document.createElement("p");
-//   unPara.setAttribute("id", id);
-//   // unLien.setAttribute("style", style); // BUG !  il doit y avoir un style pas catholique sur un <p>...
-//   parent.append(unPara);
-//   document.querySelector("#" + id).innerHTML = texte;
-//   return unPara;
-// }
-
-// /**
-//  *
-//  *                    Création LienCliquable
-//  * @param {*} parent
-//  * @param {*} id
-//  * @param {*} texte
-//  */
-// function creerLien(parent, id = "", lien="#", texte = "Texte du lien", style="") {
-//   let unLien = document.createElement("a");
-//   unLien.setAttribute("id", id);
-//   unLien.setAttribute("href", lien);
-//   unLien.setAttribute("style", style);
-//   parent.append(unLien);
-//   document.querySelector("#" + id).innerHTML = texte;
-//   return unLien;
-// }
-
-// /**
-//  * 
-//  *    Création Div simple
-//  * 
-//  * 
-//  * 
-//  * @param {*} parent 
-//  * @param {*} id 
-//  * @param {*} style 
-//  */
-// function creerDiv(parent, id = "", style="") {
-//   let uneDiv = document.createElement("p");
-//   uneDiv.setAttribute("id", id);
-//   uneDiv.setAttribute("style", style);
-//   parent.append(uneDiv);
-//   // document.querySelector("#" + id).innerHTML = texte;
-//   return uneDiv;
-// }

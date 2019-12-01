@@ -1,5 +1,8 @@
 "use strict"
-
+/**
+ * Les données sont stockées dans le localStorage
+ * 
+ */
 let score = 0
 let bestScore = {
   nom: "Michel",

@@ -61,6 +61,8 @@ function lancerLaPartie() {
     " points</b> et est détenu par <b>" +
     bestScore.nom +
     "</b>"
+    document.getElementById("texte1").innerHTML =
+  "Nombre total de questions : <br>" + questions.length + "<br>Question : "+ "1" +" sur "+ questions.length
   // Poser la première question:
   imprimerUneQuestion(questions[0])
 }
@@ -84,6 +86,8 @@ let idQuestionSuivante = 1
 function afficherQuestionSuivante() {
   if (idQuestionSuivante < questions.length) {
     imprimerUneQuestion(questions[idQuestionSuivante])
+    document.getElementById("texte1").innerHTML =
+    "Nombre total de questions : <br>" + questions.length + "<br>Question : "+ (idQuestionSuivante+1) +" sur "+ questions.length
     idQuestionSuivante += 1
   } else {
     // FIN DE PARTIE
@@ -93,6 +97,11 @@ function afficherQuestionSuivante() {
     score = 0
     document.getElementById("btnSelect1").innerHTML = "Éditer"
     document.getElementById("btnSelect2").innerHTML = "Lancer"
+    // indice des questions:
+// for (let numeroDeQuestion of Object.keys(questions)) {
+//   console.log()
+//   console.log(numeroDeQuestion)
+// }
   }
 }
 
@@ -173,8 +182,13 @@ function verifChoixMultiple(questionPosee) {
   }
 }
 
-document.getElementById("texte1").innerHTML =
-  "Nombre total de questions : <br>" + questions.length
+// indice des questions:
+// for (let numeroDeQuestion of Object.keys(questions)) {
+//   console.log()
+//   console.log(numeroDeQuestion)
+// }
+// document.getElementById("texte1").innerHTML =
+//   "Nombre total de questions : <br>" + questions.length + "<br>Question : "+ "_numeroDeQuestion" +" sur "+ questions.length
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  *
  *
