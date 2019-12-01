@@ -140,43 +140,23 @@ function verifChoixMultiple(questionPosee) {
   let cb3 = document.getElementById("cb_reponse3")
   let cb4 = document.getElementById("cb_reponse4")
   let reponsesJoueur = [cb1.checked, cb2.checked, cb3.checked, cb4.checked]
+  let repTab = []
   for (let q of questions) {
     if (q.question == questionPosee.innerHTML) {
-        // alert("Superbe !!!")
-        let repTab = Object.values(q.reponses)
-        // for (let rj of reponsesJoueur){
-          // for (let rbonne of repTab){
-            // if (rj == rbonne){
-            //   alert("4fois")
-            // }
-          // }
-        // }
-        console.log(repTab)
-        // console.log((repTab = reponsesJoueur))
-        // if(repTab == reponsesJoueur){
-        //   alert('Cool')
-        // }
+      // alert("Superbe !!!")
+      repTab = Object.values(q.reponses)
+      console.log(repTab)
     }
     console.log(reponsesJoueur)
   }
-}
-
-function verifGagne(questionPosee, reponseCliked) {
-  let questionEnCours = questionPosee
-
-  // verifier si reponse ok donc si pour cle(=reponse) => true
-  // pour la question, calculer le total cases a cocher, puis faire
-  // la verif en comparant la somme precalculee a la somme constatée
-  // On retrouve la bonne réponse...
-  let bonneReponse = Object.keys(questionEnCours.reponses).find(
-    value => questionEnCours.reponses[value] === true
-  )
-  console.log("BOONE REOSNE" + bonneReponse)
-  // // que l'on va comparer à celle choisie:
-  let reponseDuJoueur = questionEnCours.reponses[reponseCliked]
-  // console.log("Le joueur a t'il raison ? : ", reponseDuJoueur ? "oui" : "non")
-  if (reponseDuJoueur === true) {
-    alert("BRAVOOOO !!!!")
+  let compteur = 0
+  for (let ind = 0; ind < reponsesJoueur.length; ind++) {
+    if (reponsesJoueur[ind] == repTab[ind]) {
+      compteur += 1
+      console.log(compteur)
+    }
+  }
+  if (compteur == 4) { // - - - - - - BONNE REPONSE
     score += 1
     if (score > bestScore.topScore) {
       bestScore.topScore = score
@@ -190,13 +170,7 @@ function verifGagne(questionPosee, reponseCliked) {
       " points</b> et est détenu par <b>" +
       bestScore.nom +
       "</b>"
-    afficherQuestionSuivante()
-  } else {
-    alert("Perdu...")
-    afficherQuestionSuivante()
   }
-  console.groupEnd("verifGAGNE")
-  return score
 }
 
 document.getElementById("texte1").innerHTML =
