@@ -149,6 +149,7 @@ function imprimerUneQuestion(uneQuestion) {
   let tabReponses = uneQuestion.propositions
   
   creerDiv(dansColJeu, "reponses", "display:flex; ")
+  nettoyer(document.getElementById("reponses"))
   let dansDivReponses = document.querySelector("#reponses")
   for (let rep of tabReponses) {
     let numeroRep = "reponse" + indice // creation id
@@ -179,4 +180,10 @@ function imprimerUneQuestion(uneQuestion) {
     indice += 1
   }
   // }
+}
+
+function nettoyer(element){
+  while(element.firstChild){
+    element.removeChild(element.firstChild)
+  }
 }
