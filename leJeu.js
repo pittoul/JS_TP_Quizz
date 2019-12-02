@@ -65,8 +65,18 @@ function lancerLaPartie() {
     " points</b> et est détenu par <b>" +
     quizz.record.holderName +
     "</b>"
-    document.getElementById("texte1").innerHTML =
-    "Nombre total de questions : <br>" + quizz.questions.length + "<br>Question : "+ "1" +" sur "+ quizz.questions.length + "<br>Votre score est de " + score + " / " + quizz.record.score + " (meilleur score)"
+  document.getElementById("texte1").innerHTML =
+    "Nombre total de questions : <br>" +
+    quizz.questions.length +
+    "<br>Question : " +
+    "1" +
+    " sur " +
+    quizz.questions.length +
+    "<br>Votre score est de " +
+    score +
+    " / " +
+    quizz.record.score +
+    " (meilleur score)"
   // Poser la première question:
   imprimerUneQuestion(quizz.questions[0])
 }
@@ -87,12 +97,23 @@ function lancerLaPartie() {
 let idQuestionSuivante = 1
 //
 //
-function afficherQuestionSuivante() { // Penser a la fin a donner son score au joueur !!!!
+function afficherQuestionSuivante() {
+  // Penser a la fin a donner son score au joueur !!!!
   if (idQuestionSuivante < quizz.questions.length) {
     // document.getElementsByClassName("reponseEnCours").innerHTML = ""
     imprimerUneQuestion(quizz.questions[idQuestionSuivante])
     document.getElementById("texte1").innerHTML =
-    "Nombre total de questions : <br>" + quizz.questions.length + "<br>Question : "+ (idQuestionSuivante+1) +" sur "+ quizz.questions.length + "<br>Votre score est de " + score + " / " + quizz.record.score + " (meilleur score)"
+      "Nombre total de questions : <br>" +
+      quizz.questions.length +
+      "<br>Question : " +
+      (idQuestionSuivante + 1) +
+      " sur " +
+      quizz.questions.length +
+      "<br>Votre score est de " +
+      score +
+      " / " +
+      quizz.record.score +
+      " (meilleur score)"
     idQuestionSuivante += 1
   } else {
     // FIN DE PARTIE
@@ -143,22 +164,31 @@ function creerSonQuizz() {
  * 
   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 function verifChoixMultiple(questionPosee) {
-  console.log(questionPosee)
+  // console.log(questionPosee)
+  let reponsesJoueur = []
   let cb1 = document.getElementById("cb_reponse1")
+  reponsesJoueur.push(cb1.checked)
   let cb2 = document.getElementById("cb_reponse2")
+  reponsesJoueur.push(cb2.checked)
   let cb3 = document.getElementById("cb_reponse3")
-  let cb4 = document.getElementById("cb_reponse4")
-  let reponsesJoueur = [cb1.checked, cb2.checked, cb3.checked, cb4.checked]
+  reponsesJoueur.push(cb3.checked)
+  if (document.getElementById("cb_reponse4")) {
+    let cb4 = document.getElementById("cb_reponse4")
+    reponsesJoueur.push(cb4.checked)
+  }
+
+  // let reponsesJoueur = [cb1.checked, cb2.checked, cb3.checked, cb4.checked];
   let repTab = []
   // COMPARAISON DES RESULTATS SOUS FORME DE 2 TABLEAUX
   for (let q of quizz.questions) {
     if (q.heading == questionPosee) {
       // alert("comparer les reponses")
-      for (let desBool of q.propositions){
+      for (let desBool of q.propositions) {
         repTab.push(desBool.correct)
       }
       // repTab = q.propositions.correct
       console.log(repTab)
+      // console.log(reponsesJoueur)
     }
   }
   let compteur = 0
@@ -168,7 +198,8 @@ function verifChoixMultiple(questionPosee) {
       // console.log(compteur)
     }
   }
-  if (compteur == 0) { // - - - - - - BONNE REPONSE
+  if (compteur == 0) {
+    // - - - - - - BONNE REPONSE
     score += 1
     if (score > quizz.record.score) {
       quizz.record.score = score
@@ -203,4 +234,3 @@ function verifChoixMultiple(questionPosee) {
  *
  *
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
