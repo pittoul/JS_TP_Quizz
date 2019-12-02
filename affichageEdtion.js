@@ -46,7 +46,18 @@ function afficherEdition() {
       isTrue3.checked = false
       isTrue4.checked = false
     } else {
-        alert("Remplissez au moins le champ 'énoncé' et 2 réponses !")
+        alert("Remplissez au moins le champ 'énoncé' et 2 réponses dont une valide parmi les 2 premières lignes !")
     }
+    afficherEdition()
+    imprimerToutesLesQuestions(quizz.questions)
   }
 }
+
+
+// function afficherToutesLesQuestions(){
+//     let toutesLesQuestions = quizz.questions
+//     for (let q of toutesLesQuestions){
+//         imprimerUneQuestion(q)
+//         creerInputText(parent, id='', value='')
+//     }
+// }

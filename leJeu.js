@@ -18,16 +18,19 @@ function checkerScore(score) {
     )
     console.log(bestName)
     if (bestName != null) {
-      bestScore.nom = bestName
-      bestScore.topScore = score
-      localStorage.setItem("bestScore", JSON.stringify(bestScore))
+      quizz.record.holderName = bestName
+      quizz.record.score = score
+      // let bestScore = {
+      // quizz.record.holderName = bestName
+      quizz.record.score = score
+      localStorage.setItem("quizz", JSON.stringify(quizz))
       document.getElementById("texte2").innerHTML =
         "Votre score est de <b>" +
         score +
         " points</b> Le meilleur score est de <b>" +
-        bestScore.topScore +
+        quizz.record.score +
         " points</b> et est détenu par <b>" +
-        bestScore.nom +
+        quizz.record.holderName +
         "</b>"
     }
   }
@@ -50,21 +53,22 @@ let ancienBestScore = 0
  - - - - - - - - - - - - - - - - - - - - - - - -  */
 function lancerLaPartie() {
   // Affihage zone gauche de l'écran:
-  ancienBestScore = bestScore.topScore
+  ancienBestScore = quizz.record.score
+  score = 0
   idQuestionSuivante = 1
   document.getElementById("colJeu").innerHTML = ""
   document.getElementById("texte2").innerHTML =
     "Votre score est de <b>" +
     score +
     " points</b> Le meilleur score est de <b>" +
-    bestScore.topScore +
+    quizz.record.score +
     " points</b> et est détenu par <b>" +
-    bestScore.nom +
+    quizz.record.holderName +
     "</b>"
     document.getElementById("texte1").innerHTML =
-  "Nombre total de questions : <br>" + questions.length + "<br>Question : "+ "1" +" sur "+ questions.length
+    "Nombre total de questions : <br>" + quizz.questions.length + "<br>Question : "+ "1" +" sur "+ quizz.questions.length + "<br>Votre score est de " + score + " / " + quizz.record.score + " (meilleur score)"
   // Poser la première question:
-  imprimerUneQuestion(questions[0])
+  imprimerUneQuestion(quizz.questions[0])
 }
 
 /** - - - - - - - - - - - - - - - - - - - - - 
@@ -83,11 +87,12 @@ function lancerLaPartie() {
 let idQuestionSuivante = 1
 //
 //
-function afficherQuestionSuivante() {
-  if (idQuestionSuivante < questions.length) {
-    imprimerUneQuestion(questions[idQuestionSuivante])
+function afficherQuestionSuivante() { // Penser a la fin a donner son score au joueur !!!!
+  if (idQuestionSuivante < quizz.questions.length) {
+    // document.getElementsByClassName("reponseEnCours").innerHTML = ""
+    imprimerUneQuestion(quizz.questions[idQuestionSuivante])
     document.getElementById("texte1").innerHTML =
-    "Nombre total de questions : <br>" + questions.length + "<br>Question : "+ (idQuestionSuivante+1) +" sur "+ questions.length
+    "Nombre total de questions : <br>" + quizz.questions.length + "<br>Question : "+ (idQuestionSuivante+1) +" sur "+ quizz.questions.length + "<br>Votre score est de " + score + " / " + quizz.record.score + " (meilleur score)"
     idQuestionSuivante += 1
   } else {
     // FIN DE PARTIE
@@ -97,11 +102,6 @@ function afficherQuestionSuivante() {
     score = 0
     document.getElementById("btnSelect1").innerHTML = "Éditer"
     document.getElementById("btnSelect2").innerHTML = "Lancer"
-    // indice des questions:
-// for (let numeroDeQuestion of Object.keys(questions)) {
-//   console.log()
-//   console.log(numeroDeQuestion)
-// }
   }
 }
 
@@ -150,45 +150,42 @@ function verifChoixMultiple(questionPosee) {
   let cb4 = document.getElementById("cb_reponse4")
   let reponsesJoueur = [cb1.checked, cb2.checked, cb3.checked, cb4.checked]
   let repTab = []
-  for (let q of questions) {
-    if (q.question == questionPosee.innerHTML) {
-      // alert("Superbe !!!")
-      repTab = Object.values(q.reponses)
+  // COMPARAISON DES RESULTATS SOUS FORME DE 2 TABLEAUX
+  for (let q of quizz.questions) {
+    if (q.heading == questionPosee) {
+      // alert("comparer les reponses")
+      for (let desBool of q.propositions){
+        repTab.push(desBool.correct)
+      }
+      // repTab = q.propositions.correct
       console.log(repTab)
     }
-    console.log(reponsesJoueur)
   }
   let compteur = 0
   for (let ind = 0; ind < reponsesJoueur.length; ind++) {
-    if (reponsesJoueur[ind] == repTab[ind]) {
+    if (reponsesJoueur[ind] != repTab[ind]) {
       compteur += 1
-      console.log(compteur)
+      // console.log(compteur)
     }
   }
-  if (compteur == 4) { // - - - - - - BONNE REPONSE
+  if (compteur == 0) { // - - - - - - BONNE REPONSE
     score += 1
-    if (score > bestScore.topScore) {
-      bestScore.topScore = score
+    if (score > quizz.record.score) {
+      quizz.record.score = score
+      quizz.record.holderName = "Vous !"
     }
     console.log("Score : " + score)
     document.getElementById("texte2").innerHTML =
       "Votre score est de <b>" +
       score +
       " points</b> Le meilleur score est de <b>" +
-      bestScore.topScore +
+      quizz.record.score +
       " points</b> et est détenu par <b>" +
-      bestScore.nom +
+      quizz.record.holderName +
       "</b>"
   }
 }
 
-// indice des questions:
-// for (let numeroDeQuestion of Object.keys(questions)) {
-//   console.log()
-//   console.log(numeroDeQuestion)
-// }
-// document.getElementById("texte1").innerHTML =
-//   "Nombre total de questions : <br>" + questions.length + "<br>Question : "+ "_numeroDeQuestion" +" sur "+ questions.length
 /** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  *
  *
@@ -207,33 +204,3 @@ function verifChoixMultiple(questionPosee) {
  *
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-// si ma reponse == bonneReponse alors score ++ 1;
-
-// LOCAL STORAGE:
-// localStorage.setItem("questions", JSON.stringify(questions))
-// a recharger on load si lenght > 0
-// On caste le jSon du Local Storage en Objet:
-// var question1Stockee = JSON.parse(localStorage.getItem("question1"))
-// console.log(question1Stockee.reponses);
-
-// Recupération des réponses:
-// let dico = question1Stockee.reponses
-// let nbreReponses = Object.keys(dico).length;
-
-// document.getElementById("colJeu").innerHTML = question1.question
-// document.getElementById(
-//   "colJeu"
-// ).innerHTML = question1.reponses.valueOf().toString()
-
-// let uneCle = Object.keys(question1.reponses)[1] // un bout de bois
-// let uneValeur = Object.values(question1.reponses)[1] //true
-// console.log(uneCle, uneValeur);
-
-// for (let reponse of Object.keys(question1.reponses)) {
-//   //   console.log(reponse);
-// }
-// indice des questions:
-// for (let numeroDeQuestion of Object.keys(questions)) {
-//   console.log()
-//   console.log(numeroDeQuestion)
-// }

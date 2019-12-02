@@ -159,3 +159,59 @@ function creerCheckBox(parent, id = "", name = "" ){
   parent.append(uneCb)
   return uneCb
 }
+
+/**
+ *      CREER INPUT TEXT
+ * @param {*} parent 
+ * @param {*} id 
+ * @param {*} value 
+ */
+function creerInputText(parent, id='', value=''){
+  let unInput = document.createElement("input")
+  unInput.setAttribute("type", "text")
+  unInput.setAttribute("style", "display:flex; margin:10px 10px 10px 10px ; padding:10px 10px 10px 10px ;")
+  unInput.setAttribute("id", id)
+  unInput.setAttribute("name", id)
+  unInput.setAttribute("value", value)
+  unInput.setAttribute("size", "60")
+  parent.append(unInput)
+  return unInput
+}
+
+
+/**
+ *      CREER INPUT TEXT
+ * @param {*} parent 
+ * @param {*} id 
+ * @param {*} value 
+ */
+function creerInputTextContent(parent, id='', value=''){
+  let unInput = document.createElement("input")
+  unInput.setAttribute("type", "text")
+  unInput.setAttribute("style", "display:flex; margin:10px 10px 10px 10px ; padding:10px 10px 10px 10px ; color:blue;")
+  unInput.setAttribute("id", id)
+  unInput.setAttribute("name", id)
+  unInput.setAttribute("value", value)
+  unInput.setAttribute("size", "60")
+  parent.append(unInput)
+  return unInput
+}
+
+
+/**
+ *      CREER INPUT TEXT
+ * @param {*} parent 
+ * @param {*} id 
+ * @param {*} value 
+ */
+function creerInputTextCorrect(parent, id='', value=''){
+  let unInput = document.createElement("input")
+  unInput.setAttribute("type", "text")
+  unInput.setAttribute("style", "display:flex; margin:10px 10px 10px 10px ; padding:10px 10px 10px 10px ; color:orange")
+  unInput.setAttribute("id", id)
+  unInput.setAttribute("name", id)
+  unInput.setAttribute("value", value)
+  unInput.setAttribute("size", "60")
+  parent.append(unInput)
+  return unInput
+}

@@ -1,25 +1,96 @@
 "use strict"
-/**
- * Les données sont stockées dans le localStorage
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  * 
- */
+ * 
+ * 
+ * Les données récupérées du JSON fourni sont stockées dans le localStorage
+ *
+ * 
+ * 
+ * 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+let quizz = null
+
+let maFonctionFetch = () =>
+  fetch("defaultQuizz.json")
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(data) {
+      quizz = data
+      console.log(data)
+      localStorage.setItem("quizz", JSON.stringify(data))
+      return data
+    })
+
+window.onload = maFonctionFetch()
+
+// On attend 1500ms pour que le json soit bien enregistré dans le localStorage
+setTimeout(() => {
+  resteDuCode()
+}, 1500)
+
 let score = 0
-let bestScore = {
-  nom: "Michel",
-  topScore: 1
-}
-if (JSON.parse(localStorage.getItem("bestScore")) != null) {
-  bestScore = JSON.parse(localStorage.getItem("bestScore"))
-}
-// CHARGEMENT DES QUESTIONS
-let questions = []
-let aTester = JSON.parse(localStorage.getItem("questions"))
-if (aTester != null && aTester.length > 4) {
-  questions = JSON.parse(localStorage.getItem("questions"))
-} else {
+let bestScore = {}
+function resteDuCode() {
+  quizz = JSON.parse(localStorage.getItem("quizz"))
+
+  /**  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+      * 
+      * 
+      * 
+      *   ADAPTATION DU RECORD:
+      * 
+      * 
+ * 
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+  bestScore = {
+    nom: quizz.record.holderName,
+    topScore: quizz.record.score
+  }
+  adapterLesQuestions()
   creerQuestionsParDefaut()
+  //   afficherAccueil()
 }
-console.log(questions)
+
+/** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ * 
+ * 
+ * 
+ * -obsolète
+ *     ADAPTATION DES QUESTION DU JSON A MON SYSTEME
+ * 
+ *          car je n'avais pas vu le json fourni....
+ * 
+ * 
+ * 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+let questions = []
+let repAdapt = ""
+let isTrueAdapt
+function adapterLesQuestions() {
+  let questionsDefault = quizz.questions
+  for (let item of questionsDefault) {
+    let newQuestion = {}
+    let reponsesAdapt = {}
+    newQuestion.question = item.heading
+    // console.log(item.propositions) // tableau de reponses
+    let i = 1
+    for (let desReponses of item.propositions) {
+      repAdapt = desReponses.content
+      isTrueAdapt = desReponses.correct
+      reponsesAdapt[repAdapt] = isTrueAdapt
+    }
+    // correction pour que toutes les questions données aient 4 réponses
+    // car cela est nécessaire par la suite
+    if (Object.keys(reponsesAdapt).length == 3) {
+      reponsesAdapt[""] = false
+    }
+    newQuestion.reponses = reponsesAdapt
+    questions.push(newQuestion)
+  }
+}
 
 /** -------------------------------------------------------
  *
@@ -48,7 +119,7 @@ function creerQuestionsParDefaut() {
   )
   creerQuestion(
     "Si tu vois un canard blanc sur un lac, c'est...",
-    "un Cygne",
+    "un Signe",
     "un canard blanc",
     "un bout de nuage",
     "",
@@ -129,11 +200,33 @@ function creerQuestion(
   }
   question.reponses = reponses
   question.question = laQuestion
-//   console.log(question)
+  //   console.log(question)
   // AJOUT AU TABLEAU DE REPONSES
   questions.push(question)
-//   console.log("Nbre de questions : " + questions.length) // la longueur tableau d'objets contenant les questions
-  localStorage.setItem("questions", JSON.stringify(questions))
-  return questions
+
+  // ADAPTATEUR : Pour enregistrer la question dans le Quizz
+
+  let tabProp = [
+    {
+      content: reponse1,
+      correct: isTrue1
+    },
+    {
+      content: reponse2,
+      correct: isTrue2
+    },
+    {
+      content: reponse3,
+      correct: isTrue3
+    },
+    {
+      content: reponse4,
+      correct: isTrue4
+    }
+  ]
+  let aAjouterAuQuizz = { heading: laQuestion ,  propositions: tabProp }
+  quizz.questions.push(aAjouterAuQuizz)
+//   console.log(quizz)
+  localStorage.setItem("quizz", JSON.stringify(quizz))
+  //   return questions
 }
-// console.log(JSON.parse(localStorage.getItem("questions")))

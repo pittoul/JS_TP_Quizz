@@ -130,7 +130,7 @@ let enHautAGauche = document.querySelector("#colHautGauche");
 creerPara(
   enHautAGauche,
   (this.id = "texte1"),
-  (this.texte = "Zone TEXTE 1  - - - <br>lorem ipsum blablabla<br/> truc blabla!")
+  (this.texte = "...Chargement...")
  // (this.style = styleTexte1)
 );
 
@@ -160,7 +160,7 @@ let enHautAGauche2 = document.querySelector("#colHautGauche2");
 creerPara(
   enHautAGauche2,
   (this.id = "texte2"),
-  (this.texte = "- - - TEXTE 2  - - - <br>lorem ipsum blablabla<br/> truc blabla!")
+  (this.texte = "")
  // (this.style = styleTexte1)
 );
 

@@ -24,13 +24,16 @@ function gererBtn1() {
       console.log("AFFICHER EDITION")
       document.getElementById("btnSelect1").innerHTML = "Accueil"
       afficherEdition()
-      imprimerToutesLesQuestions(questions)
+      imprimerToutesLesQuestions(quizz.questions)
+      document.querySelector(".titrePage").innerHTML = "Edition du Quizzzz..."
       break
     case "Accueil":
       console.log("AFFICHER ACCUEIL")
       document.getElementById("btnSelect1").innerHTML = "Éditer"
       document.getElementById("btnSelect2").innerHTML = "Lancer"
+      checkerScore(score)
       afficherAccueil()
+      document.querySelector(".titrePage").innerHTML = "Bienvenue chez   Quizzzz..."
 
       break
     default:
@@ -45,6 +48,8 @@ function gererBtn2() {
   switch (etatDuBouton2) {
     case "Lancer":
       console.log("LANCER UNE PARTIE")
+      document.querySelector(".titrePage").innerHTML = quizz.name
+
       document.getElementById("btnSelect2").innerHTML = "Suivante"
       document.getElementById("btnSelect1").innerHTML = "Accueil"
       lancerLaPartie()
@@ -52,8 +57,9 @@ function gererBtn2() {
     case "Suivante":
       console.log("QUESTION SUIVANTE")
       document.getElementById("btnSelect2").innerHTML = "Suivante"
-      verifChoixMultiple(question)
-    //   verifGagne(question, )
+      let enonce = document.getElementById("question").innerHTML
+      verifChoixMultiple(enonce)
+      //   verifGagne(question, )
       afficherQuestionSuivante()
       break
     default:

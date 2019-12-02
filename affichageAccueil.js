@@ -1,4 +1,5 @@
-window.onload=afficherAccueil()
+// window.onload=afficherAccueil()
+setTimeout(function(){ afficherAccueil() }, 1500);
 /**
  * 
  * 
@@ -9,11 +10,12 @@ window.onload=afficherAccueil()
  * 
  */
 function afficherAccueil(){
-    console.log(bestScore)
+    // console.log(bestScore)
     document
     .querySelector("#colJeu")
     .innerHTML = "Bienvenue dans le QuiZZzzz !";
-    document.getElementById("texte2").innerHTML = "Le meilleur score est de " + bestScore.topScore + " points et est détenu par " + bestScore.nom
+
+    document.getElementById("texte2").innerHTML = "Le meilleur score est de " + quizz.record.score + " points et est détenu par " + quizz.record.holderName
     document.getElementById("texte1").innerHTML = "Welcome !"
   }
   
